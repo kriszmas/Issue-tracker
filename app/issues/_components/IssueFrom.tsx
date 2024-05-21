@@ -2,7 +2,7 @@
 
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
-import { IssueSchema } from "@/app/validationSchemas";
+import { issueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
 import { Button, Callout, TextField } from "@radix-ui/themes";
@@ -14,7 +14,7 @@ import { Controller, useForm } from "react-hook-form";
 import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
 
-type IssueFormData = z.infer<typeof IssueSchema>;
+type IssueFormData = z.infer<typeof issueSchema>;
 
 const IssueForm = ({ issue }: { issue?: Issue }) => {
   const router = useRouter();
@@ -24,9 +24,8 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IssueFormData>({
-    resolver: zodResolver(IssueSchema),
+    resolver: zodResolver(issueSchema),
   });
-
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
 
@@ -39,15 +38,15 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       router.refresh();
     } catch (error) {
       setSubmitting(false);
-      setError("An unexpected error occured.");
+      setError("An unexpected error occurred.");
     }
   });
 
   return (
     <div className="max-w-xl">
       {error && (
-        <Callout.Root className="mb-5">
-          <Callout.Text color="red">{error}</Callout.Text>
+        <Callout.Root color="red" className="mb-5">
+          <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
       <form className="space-y-3" onSubmit={onSubmit}>
