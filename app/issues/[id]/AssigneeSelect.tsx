@@ -1,5 +1,6 @@
 "use client";
 
+import { Skeleton } from "@/app/components";
 import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -17,6 +18,10 @@ const AssigneeSelect = () => {
     staleTime: 60 * 1000,
     retry: 3,
   });
+
+  if (isLoading) return <Skeleton />;
+
+  if (error) return null;
 
   return (
     <Select.Root>
