@@ -8,9 +8,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
+//datasource db {
+//  provider = "mysql"
+// url      = env("DATABASE_URL")
+//}
+
+// prisma/schema.prisma
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 model Issue {
